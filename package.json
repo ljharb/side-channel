@@ -34,5 +34,9 @@
 		"@ljharb/eslint-config": "^15.0.2",
 		"eslint": "^6.7.2",
 		"tape": "^4.11.0"
+	},
+	"dependencies": {
+		"es-abstract": "^1.16.2",
+		"object-inspect": "^1.7.0"
 	}
 }
