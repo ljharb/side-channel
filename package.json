@@ -4,6 +4,8 @@
 	"description": "Store information about any JS value in a side channel. Uses WeakMap if available.",
 	"main": "index.js",
 	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
@@ -25,5 +27,9 @@
 	"bugs": {
 		"url": "https://github.com/ljharb/side-channel/issues"
 	},
-	"homepage": "https://github.com/ljharb/side-channel#readme"
+	"homepage": "https://github.com/ljharb/side-channel#readme",
+	"devDependencies": {
+		"@ljharb/eslint-config": "^15.0.2",
+		"eslint": "^6.7.2"
+	}
 }
