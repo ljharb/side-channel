@@ -1,0 +1,26 @@
+{
+	"name": "side-channel",
+	"version": "0.0.0",
+	"description": "Store information about any JS value in a side channel. Uses WeakMap if available.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ljharb/side-channel.git"
+	},
+	"keywords": [
+		"weakmap",
+		"map",
+		"side",
+		"channel",
+		"metadata"
+	],
+	"author": "Jordan Harband <ljharb@gmail.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/ljharb/side-channel/issues"
+	},
+	"homepage": "https://github.com/ljharb/side-channel#readme"
+}
