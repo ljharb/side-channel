@@ -3,6 +3,14 @@
 	"version": "1.0.0",
 	"description": "Store information about any JS value in a side channel. Uses WeakMap if available.",
 	"main": "index.js",
+	"exports": {
+		".": [
+			{
+				"default": "./index.js"
+			},
+			"./index.js"
+		]
+	},
 	"scripts": {
 		"prepublish": "safe-publish-latest",
 		"lint": "eslint .",
