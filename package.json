@@ -49,7 +49,7 @@
 		"tape": "^5.0.0-next.5"
 	},
 	"dependencies": {
-		"es-abstract": "^1.17.4",
+		"es-abstract": "^1.17.5",
 		"object-inspect": "^1.7.0"
 	},
 	"auto-changelog": {
