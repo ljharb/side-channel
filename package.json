@@ -50,8 +50,8 @@
 		"tape": "^5.0.0-next.5"
 	},
 	"dependencies": {
-		"es-abstract": "^1.17.5",
-		"object-inspect": "^1.7.0"
+		"es-abstract": "^1.18.0-next.0",
+		"object-inspect": "^1.8.0"
 	},
 	"auto-changelog": {
 		"output": "CHANGELOG.md",
