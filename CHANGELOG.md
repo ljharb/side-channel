@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.0.3](https://github.com/ljharb/side-channel/compare/v1.0.2...v1.0.3) - 2020-08-23
+
+### Commits
+
+- [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `aud`, `auto-changelog`, `tape` [`1f10561`](https://github.com/ljharb/side-channel/commit/1f105611ef3acf32dec8032ae5c0baa5e56bb868)
+- [Deps] update `es-abstract`, `object-inspect` [`bc20159`](https://github.com/ljharb/side-channel/commit/bc201597949a505e37cef9eaf24c7010831e6f03)
+- [Dev Deps] update `@ljharb/eslint-config`, `tape` [`b9b2b22`](https://github.com/ljharb/side-channel/commit/b9b2b225f9e0ea72a6ec2b89348f0bd690bc9ed1)
+- [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `tape` [`7055ab4`](https://github.com/ljharb/side-channel/commit/7055ab4de0860606efd2003674a74f1fe6ebc07e)
+- [Dev Deps] update `auto-changelog`; add `aud` [`d278c37`](https://github.com/ljharb/side-channel/commit/d278c37d08227be4f84aa769fcd919e73feeba40)
+- [actions] switch Automatic Rebase workflow to `pull_request_target` event [`3bcf982`](https://github.com/ljharb/side-channel/commit/3bcf982faa122745b39c33ce83d32fdf003741c6)
+- [Tests] only audit prod deps [`18d01c4`](https://github.com/ljharb/side-channel/commit/18d01c4015b82a3d75044c4d5ba7917b2eac01ec)
+- [Deps] update `es-abstract` [`6ab096d`](https://github.com/ljharb/side-channel/commit/6ab096d9de2b482cf5e0717e34e212f5b2b9bc9a)
+- [Dev Deps] update `tape` [`9dc174c`](https://github.com/ljharb/side-channel/commit/9dc174cc651dfd300b4b72da936a0a7eda5f9452)
+- [Deps] update `es-abstract` [`431d0f0`](https://github.com/ljharb/side-channel/commit/431d0f0ff11fbd2ae6f3115582a356d3a1cfce82)
+- [Deps] update `es-abstract` [`49869fd`](https://github.com/ljharb/side-channel/commit/49869fd323bf4453f0ba515c0fb265cf5ab7b932)
+- [meta] Add package.json to package's exports [`77d9cdc`](https://github.com/ljharb/side-channel/commit/77d9cdceb2a9e47700074f2ae0c0a202e7dac0d4)
+
 ## [v1.0.2](https://github.com/ljharb/side-channel/compare/v1.0.1...v1.0.2) - 2019-12-20
 
 ### Commits
