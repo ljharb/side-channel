@@ -16,7 +16,7 @@
 		"prepublish": "safe-publish-latest",
 		"lint": "eslint .",
 		"pretest": "npm run lint",
-		"tests-only": "node test",
+		"tests-only": "nyc tape 'test/**/*.js'",
 		"test": "npm run tests-only",
 		"posttest": "npx aud --production",
 		"version": "auto-changelog && git add CHANGELOG.md",
@@ -47,6 +47,7 @@
 		"aud": "^1.1.2",
 		"auto-changelog": "^2.2.0",
 		"eslint": "^7.7.0",
+		"nyc": "^10.3.2",
 		"safe-publish-latest": "^1.1.4",
 		"tape": "^5.0.1"
 	},
