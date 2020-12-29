@@ -53,7 +53,7 @@
 	},
 	"dependencies": {
 		"es-abstract": "^1.18.0-next.0",
-		"object-inspect": "^1.8.0"
+		"object-inspect": "^1.9.0"
 	},
 	"auto-changelog": {
 		"output": "CHANGELOG.md",
