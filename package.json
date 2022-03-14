@@ -55,7 +55,7 @@
 	"dependencies": {
 		"call-bind": "^1.0.2",
 		"get-intrinsic": "^1.1.1",
-		"object-inspect": "^1.11.1"
+		"object-inspect": "^1.12.0"
 	},
 	"auto-changelog": {
 		"output": "CHANGELOG.md",
