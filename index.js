@@ -1,19 +1,24 @@
 'use strict';
 
-var GetIntrinsic = require('get-intrinsic');
-var callBound = require('call-bind/callBound');
 var inspect = require('object-inspect');
+var bind = require('function-bind');
 
-var $TypeError = GetIntrinsic('%TypeError%');
-var $WeakMap = GetIntrinsic('%WeakMap%', true);
-var $Map = GetIntrinsic('%Map%', true);
+var $call = Function.prototype.call;
 
-var $weakMapGet = callBound('WeakMap.prototype.get', true);
-var $weakMapSet = callBound('WeakMap.prototype.set', true);
-var $weakMapHas = callBound('WeakMap.prototype.has', true);
-var $mapGet = callBound('Map.prototype.get', true);
-var $mapSet = callBound('Map.prototype.set', true);
-var $mapHas = callBound('Map.prototype.has', true);
+var callBound = function (original) {
+	return $call.call(bind, $call, original);
+};
+
+var $TypeError = TypeError;
+var $WeakMap = typeof WeakMap === 'function' ? WeakMap : undefined;
+var $Map = typeof Map === 'function' ? Map : undefined;
+
+var $weakMapGet = $WeakMap ? callBound($WeakMap.prototype.get) : undefined;
+var $weakMapSet = $WeakMap ? callBound($WeakMap.prototype.set) : undefined;
+var $weakMapHas = $WeakMap ? callBound($WeakMap.prototype.has) : undefined;
+var $mapGet = $Map ? callBound($Map.prototype.get) : undefined;
+var $mapSet = $Map ? callBound($Map.prototype.set) : undefined;
+var $mapHas = $Map ? callBound($Map.prototype.has) : undefined;
 
 /*
 * This function traverses the list returning the node corresponding to the given key.
