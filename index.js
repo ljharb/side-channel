@@ -1,25 +1,12 @@
 'use strict';
 
-var GetIntrinsic = require('get-intrinsic');
-var callBound = require('call-bind/callBound');
 var inspect = require('object-inspect');
 
-var $TypeError = require('es-errors/type');
-var $WeakMap = GetIntrinsic('%WeakMap%', true);
-var $Map = GetIntrinsic('%Map%', true);
-
-var $weakMapGet = callBound('WeakMap.prototype.get', true);
-var $weakMapSet = callBound('WeakMap.prototype.set', true);
-var $weakMapHas = callBound('WeakMap.prototype.has', true);
-var $mapGet = callBound('Map.prototype.get', true);
-var $mapSet = callBound('Map.prototype.set', true);
-var $mapHas = callBound('Map.prototype.has', true);
-
 /*
-* This function traverses the list returning the node corresponding to the given key.
-*
-* That node is also moved to the head of the list, so that if it's accessed again we don't need to traverse the whole list. By doing so, all the recently used nodes can be accessed relatively quickly.
-*/
+ * This function traverses the list returning the node corresponding to the given key.
+ *
+ * That node is also moved to the head of the list, so that if it's accessed again we don't need to traverse the whole list. By doing so, all the recently used nodes can be accessed relatively quickly.
+ */
 /** @type {import('.').listGetNode} */
 var listGetNode = function (list, key) { // eslint-disable-line consistent-return
 	/** @type {typeof list | NonNullable<(typeof list)['next']>} */
@@ -71,17 +58,19 @@ module.exports = function getSideChannel() {
 	var channel = {
 		assert: function (key) {
 			if (!channel.has(key)) {
-				throw new $TypeError('Side channel does not contain ' + inspect(key));
+				throw new TypeError('Side channel does not contain ' + inspect(key));
 			}
 		},
+		// @ts-ignore
 		get: function (key) { // eslint-disable-line consistent-return
-			if ($WeakMap && key && (typeof key === 'object' || typeof key === 'function')) {
+			if (WeakMap && key && (typeof key === 'object' || typeof key === 'function')) {
 				if ($wm) {
-					return $weakMapGet($wm, key);
+					return $wm.get(key);
 				}
-			} else if ($Map) {
+			} else if (Map) {
 				if ($m) {
-					return $mapGet($m, key);
+					// @ts-ignore
+					return $m.get(key);
 				}
 			} else {
 				if ($o) { // eslint-disable-line no-lonely-if
@@ -90,13 +79,14 @@ module.exports = function getSideChannel() {
 			}
 		},
 		has: function (key) {
-			if ($WeakMap && key && (typeof key === 'object' || typeof key === 'function')) {
+			if (WeakMap && key && (typeof key === 'object' || typeof key === 'function')) {
 				if ($wm) {
-					return $weakMapHas($wm, key);
+					return $wm.has(key);
 				}
-			} else if ($Map) {
+			} else if (Map) {
 				if ($m) {
-					return $mapHas($m, key);
+					// @ts-ignore
+					return $m.has(key);
 				}
 			} else {
 				if ($o) { // eslint-disable-line no-lonely-if
@@ -106,16 +96,17 @@ module.exports = function getSideChannel() {
 			return false;
 		},
 		set: function (key, value) {
-			if ($WeakMap && key && (typeof key === 'object' || typeof key === 'function')) {
+			if (WeakMap && key && (typeof key === 'object' || typeof key === 'function')) {
 				if (!$wm) {
-					$wm = new $WeakMap();
+					$wm = new WeakMap();
 				}
-				$weakMapSet($wm, key, value);
-			} else if ($Map) {
+				$wm.set(key, value);
+			} else if (Map) {
 				if (!$m) {
-					$m = new $Map();
+					$m = new Map();
 				}
-				$mapSet($m, key, value);
+				// @ts-ignore
+				$m.set(key, value);
 			} else {
 				if (!$o) {
 					// Initialize the linked list as an empty node, so that we don't have to special-case handling of the first node: we can always refer to it as (previous node).next, instead of something like (list).head
