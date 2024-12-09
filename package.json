@@ -61,9 +61,7 @@
 		"typescript": "next"
 	},
 	"dependencies": {
-		"call-bind": "^1.0.7",
 		"es-errors": "^1.3.0",
-		"get-intrinsic": "^1.2.4",
 		"object-inspect": "^1.13.1"
 	},
 	"auto-changelog": {

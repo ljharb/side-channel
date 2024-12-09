@@ -1,25 +1,49 @@
 'use strict';
 
-var GetIntrinsic = require('get-intrinsic');
-var callBound = require('call-bind/callBound');
 var inspect = require('object-inspect');
 
 var $TypeError = require('es-errors/type');
-var $WeakMap = GetIntrinsic('%WeakMap%', true);
-var $Map = GetIntrinsic('%Map%', true);
+var $WeakMap = typeof WeakMap === 'undefined' ? undefined : WeakMap;
+var $Map = typeof Map === 'undefined' ? undefined : Map;
 
-var $weakMapGet = callBound('WeakMap.prototype.get', true);
-var $weakMapSet = callBound('WeakMap.prototype.set', true);
-var $weakMapHas = callBound('WeakMap.prototype.has', true);
-var $mapGet = callBound('Map.prototype.get', true);
-var $mapSet = callBound('Map.prototype.set', true);
-var $mapHas = callBound('Map.prototype.has', true);
+var $bind = Function.prototype.bind;
+var $call = Function.prototype.call;
+var uncurryThis = $bind ? $bind.bind($call) : undefined;
+
+/**
+ * @template {(this: unknown, ...args: any[]) => unknown} T
+ * @typedef {(self: ThisParameterType<T>, ...args: Parameters<T>) => ReturnType<T>} UncurryThis
+ */
+
+/** @type {UncurryThis<WeakMap<any, any>['get']>} */
+var $weakMapGet;
+/** @type {UncurryThis<WeakMap<any, any>['set']>} */
+var $weakMapSet;
+/** @type {UncurryThis<WeakMap<any, any>['has']>} */
+var $weakMapHas;
+if ($WeakMap && uncurryThis) {
+	$weakMapGet = uncurryThis($WeakMap.prototype.get);
+	$weakMapSet = uncurryThis($WeakMap.prototype.set);
+	$weakMapHas = uncurryThis($WeakMap.prototype.has);
+}
+
+/** @type {UncurryThis<Map<any, any>['get']>} */
+var $mapGet;
+/** @type {UncurryThis<Map<any, any>['set']>} */
+var $mapSet;
+/** @type {UncurryThis<Map<any, any>['has']>} */
+var $mapHas;
+if ($Map && uncurryThis) {
+	$mapGet = uncurryThis($Map.prototype.get);
+	$mapSet = uncurryThis($Map.prototype.set);
+	$mapHas = uncurryThis($Map.prototype.has);
+}
 
 /*
-* This function traverses the list returning the node corresponding to the given key.
-*
-* That node is also moved to the head of the list, so that if it's accessed again we don't need to traverse the whole list. By doing so, all the recently used nodes can be accessed relatively quickly.
-*/
+ * This function traverses the list returning the node corresponding to the given key.
+ *
+ * That node is also moved to the head of the list, so that if it's accessed again we don't need to traverse the whole list. By doing so, all the recently used nodes can be accessed relatively quickly.
+ */
 /** @type {import('.').listGetNode} */
 var listGetNode = function (list, key) { // eslint-disable-line consistent-return
 	/** @type {typeof list | NonNullable<(typeof list)['next']>} */
