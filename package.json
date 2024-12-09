@@ -61,6 +61,7 @@
 		"typescript": "next"
 	},
 	"dependencies": {
+		"es-errors": "^1.3.0",
 		"object-inspect": "^1.13.1"
 	},
 	"auto-changelog": {

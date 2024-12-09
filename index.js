@@ -2,7 +2,7 @@
 
 var inspect = require('object-inspect');
 
-var $TypeError = TypeError;
+var $TypeError = require('es-errors/type');
 var $WeakMap = typeof WeakMap === 'undefined' ? undefined : WeakMap;
 var $Map = typeof Map === 'undefined' ? undefined : Map;
 
