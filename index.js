@@ -8,11 +8,19 @@ var $TypeError = require('es-errors/type');
 var $WeakMap = GetIntrinsic('%WeakMap%', true);
 var $Map = GetIntrinsic('%Map%', true);
 
+/** @template T @typedef {<T extends (this: any, ...args: any[]) => any>(this: ThisParameterType<T>, ...args: Parameters<T>) => ReturnType<T>} CallBind */
+
+/** @type {CallBind<<K extends object, V>(this: WeakMap<K, V>, key: K) => V>} */
 var $weakMapGet = callBound('WeakMap.prototype.get', true);
+/** @type {CallBind<typeof WeakMap.prototype.set>} */
 var $weakMapSet = callBound('WeakMap.prototype.set', true);
+/** @type {CallBind<typeof WeakMap.prototype.has>} */
 var $weakMapHas = callBound('WeakMap.prototype.has', true);
+/** @type {CallBind<typeof Map.prototype.get>} */
 var $mapGet = callBound('Map.prototype.get', true);
+/** @type {CallBind<typeof Map.prototype.set>} */
 var $mapSet = callBound('Map.prototype.set', true);
+/** @type {CallBind<typeof Map.prototype.has>} */
 var $mapHas = callBound('Map.prototype.has', true);
 
 /*
@@ -20,7 +28,7 @@ var $mapHas = callBound('Map.prototype.has', true);
 *
 * That node is also moved to the head of the list, so that if it's accessed again we don't need to traverse the whole list. By doing so, all the recently used nodes can be accessed relatively quickly.
 */
-/** @type {import('.').listGetNode} */
+/** @type {import('./list.d.ts').listGetNode} */
 var listGetNode = function (list, key) { // eslint-disable-line consistent-return
 	/** @type {typeof list | NonNullable<(typeof list)['next']>} */
 	var prev = list;
@@ -37,37 +45,41 @@ var listGetNode = function (list, key) { // eslint-disable-line consistent-retur
 	}
 };
 
-/** @type {import('.').listGet} */
+/** @type {import('./list.d.ts').listGet} */
 var listGet = function (objects, key) {
 	var node = listGetNode(objects, key);
 	return node && node.value;
 };
-/** @type {import('.').listSet} */
+/** @type {import('./list.d.ts').listSet} */
 var listSet = function (objects, key, value) {
 	var node = listGetNode(objects, key);
 	if (node) {
 		node.value = value;
 	} else {
 		// Prepend the new node to the beginning of the list
-		objects.next = /** @type {import('.').ListNode<typeof value>} */ ({ // eslint-disable-line no-param-reassign, no-extra-parens
+		objects.next = /** @type {import('./list.d.ts').ListNode<typeof value, typeof key>} */ ({ // eslint-disable-line no-param-reassign, no-extra-parens
 			key: key,
 			next: objects.next,
 			value: value
 		});
 	}
 };
-/** @type {import('.').listHas} */
+/** @type {import('./list.d.ts').listHas} */
 var listHas = function (objects, key) {
 	return !!listGetNode(objects, key);
 };
 
 /** @type {import('.')} */
 module.exports = function getSideChannel() {
-	/** @type {WeakMap<object, unknown>} */ var $wm;
-	/** @type {Map<object, unknown>} */ var $m;
-	/** @type {import('.').RootNode<unknown>} */ var $o;
+	/** @typedef {ReturnType<typeof getSideChannel>} Channel */
+	/** @typedef {Parameters<Channel['get']>[0]} K */
+	/** @typedef {Parameters<Channel['set']>[1]} V */
 
-	/** @type {import('.').Channel} */
+	/** @type {WeakMap<K & object, V> | undefined} */ var $wm;
+	/** @type {Map<K, V> | undefined} */ var $m;
+	/** @type {import('./list.d.ts').RootNode<V, K> | undefined} */ var $o;
+
+	/** @type {Channel} */
 	var channel = {
 		assert: function (key) {
 			if (!channel.has(key)) {
@@ -125,5 +137,6 @@ module.exports = function getSideChannel() {
 			}
 		}
 	};
+	// @ts-expect-error TODO: figure out why this is erroring
 	return channel;
 };

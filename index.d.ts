@@ -1,27 +1,12 @@
 declare namespace getSideChannel {
-	type Key = unknown;
-	type ListNode<T> = {
-		key: Key;
-		next: ListNode<T>;
-		value: T;
-	};
-	type RootNode<T> = {
-		key: object;
-		next: null | ListNode<T>;
-	};
-	function listGetNode<T>(list: RootNode<T>, key: ListNode<T>['key']): ListNode<T> | void;
-	function listGet<T>(objects: RootNode<T>, key: ListNode<T>['key']): T | void;
-	function listSet<T>(objects: RootNode<T>, key: ListNode<T>['key'], value: T): void;
-	function listHas<T>(objects: RootNode<T>, key: ListNode<T>['key']): boolean;
-
-	type Channel = {
-		assert: (key: Key) => void;
-		has: (key: Key) => boolean;
-		get: <T>(key: Key) => T;
-		set: <T>(key: Key, value: T) => void;
+	type Channel<V, K> = {
+		assert: (key: K) => void;
+		has: (key: K) => boolean;
+		get: (key: K) => V | undefined;
+		set: (key: K, value: V) => void;
 	}
 }
 
-declare function getSideChannel(): getSideChannel.Channel;
+declare function getSideChannel<V, K>(): getSideChannel.Channel<V, K>;
 
 export = getSideChannel;
