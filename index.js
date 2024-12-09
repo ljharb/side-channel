@@ -8,7 +8,15 @@ var $Map = typeof Map === 'undefined' ? undefined : Map;
 
 var $bind = Function.prototype.bind;
 var $call = Function.prototype.call;
-var uncurryThis = $bind.bind($call);
+var uncurryThis = $bind
+	? $bind.bind($call)
+	// @ts-ignore
+	: function uncurryThis(f) {
+		return function () {
+			// @ts-ignore
+			return $call.apply(f, arguments);
+		};
+	};
 
 /**
  * @template {(this: unknown, ...args: any[]) => unknown} T
