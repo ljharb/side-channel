@@ -61,10 +61,10 @@
 		"typescript": "next"
 	},
 	"dependencies": {
-		"call-bind": "^1.0.7",
+		"call-bind": "^1.0.8",
 		"es-errors": "^1.3.0",
-		"get-intrinsic": "^1.2.4",
-		"object-inspect": "^1.13.1"
+		"get-intrinsic": "^1.2.5",
+		"object-inspect": "^1.13.3"
 	},
 	"auto-changelog": {
 		"output": "CHANGELOG.md",
