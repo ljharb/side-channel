@@ -8,15 +8,7 @@ var $Map = typeof Map === 'undefined' ? undefined : Map;
 
 var $bind = Function.prototype.bind;
 var $call = Function.prototype.call;
-var uncurryThis = $bind
-	? $bind.bind($call)
-	// @ts-ignore
-	: function uncurryThis(f) {
-		return function () {
-			// @ts-ignore
-			return $call.apply(f, arguments);
-		};
-	};
+var uncurryThis = $bind ? $bind.bind($call) : undefined;
 
 /**
  * @template {(this: unknown, ...args: any[]) => unknown} T
@@ -29,7 +21,7 @@ var $weakMapGet;
 var $weakMapSet;
 /** @type {UncurryThis<WeakMap<any, any>['has']>} */
 var $weakMapHas;
-if ($WeakMap) {
+if ($WeakMap && uncurryThis) {
 	$weakMapGet = uncurryThis($WeakMap.prototype.get);
 	$weakMapSet = uncurryThis($WeakMap.prototype.set);
 	$weakMapHas = uncurryThis($WeakMap.prototype.has);
@@ -41,7 +33,7 @@ var $mapGet;
 var $mapSet;
 /** @type {UncurryThis<Map<any, any>['has']>} */
 var $mapHas;
-if ($Map) {
+if ($Map && uncurryThis) {
 	$mapGet = uncurryThis($Map.prototype.get);
 	$mapSet = uncurryThis($Map.prototype.set);
 	$mapHas = uncurryThis($Map.prototype.has);
