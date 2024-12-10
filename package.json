@@ -14,7 +14,7 @@
 		"prepublish": "not-in-publish || npm run prepublishOnly",
 		"prelint": "eclint check $(git ls-files | xargs find 2> /dev/null | grep -vE 'node_modules|\\.git')",
 		"lint": "eslint --ext=js,mjs .",
-		"postlint": "tsc -p .",
+		"postlint": "tsc -p . && attw -P",
 		"pretest": "npm run lint",
 		"tests-only": "nyc tape 'test/**/*.js'",
 		"test": "npm run tests-only",
@@ -49,6 +49,7 @@
 		"object-inspect": "^1.13.3"
 	},
 	"devDependencies": {
+		"@arethetypeswrong/cli": "^0.17.1",
 		"@ljharb/eslint-config": "^21.1.1",
 		"@ljharb/tsconfig": "^0.2.2",
 		"@types/call-bind": "^1.0.5",
