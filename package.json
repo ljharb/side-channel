@@ -1,6 +1,6 @@
 {
 	"name": "side-channel",
-	"version": "1.0.6",
+	"version": "1.1.0",
 	"description": "Store information about any JS value in a side channel. Uses WeakMap if available.",
 	"main": "index.js",
 	"exports": {
